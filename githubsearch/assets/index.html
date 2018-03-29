@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="git" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>Github Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">  
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="js/gitSearchCtrl.js"></script>
+  </head>
+  <body>
+    <div ng-controller="gitSearchCtrl as ctrl">
+      <div class="container position-search">
+       <div class="jumbotron">
+        <form name="gitSearch" ng-submit="ctrl.getUserName()">
+          <div class="row position-search-text">
+            <div class="col-sm-6">
+              <label><strong>Github Search</strong></label>
+            </div>
+          </div>
+          <div class="row position-search-text">
+            <div class="col-sm-6">
+              <input type="text"
+                     placeholder="username"
+                     ng-model="ctrl.git.username"
+                     >
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row" ng-if="ctrl.showLists">
+        <div class="col-sm-4">
+          <figure>
+            <img ng-src="{{ctrl.avatar_url}}" alt="User Image" class="image-container">
+            <figcaption><a class="position-username" href="{{ctrl.mainGitPage}}" target="_blank">({{ctrl.gitUserData.login}})</a></figcaption>
+          </figure>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <p class="list-headings">{{ctrl.gitUserData.login}}'s Repo</p>
+            <ul ng-repeat="repo in ctrl.repolists">
+                <li><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></li>
+            </ul>
+          </div>
+          <div class="row">
+            <p class="list-headings">{{ctrl.gitUserData.login}}'s Gist</p>
+            <ul ng-repeat="gist in ctrl.gistLists">
+                <li><a href="{{gist.html_url}}" target="_blank">{{gist.description}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+     </div>
+    </div>
+  </body>
+</html>
